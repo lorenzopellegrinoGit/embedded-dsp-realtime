@@ -17,10 +17,10 @@ This repository contains the code, experimental analysis, and technical report f
 ```text
 embedded-dsp-realtime/
 ├── docs/
-│   └── 11_group_DSP.pdf          # Report tecnico completo
+│   └── 11_group_DSP.pdf          # Technical report
 ├── src/
-│   ├── fir_filters.c             # Implementazione filtri FIR (Linear/Circular)
-│   ├── iir_filters.c             # Implementazione Biquad IIR (DF-I/DF-II)
-│   ├── rice_codec.c              # Codec di compressione Rice-Golomb
-│   └── audio_loop.c              # Gestione interrupt DMA e ciclo real-time
+│   ├── fir_filters.c             # FIR Filter implementation (Linear/Circular)
+│   ├── iir_filters.c             # Biquad IIR (DF-I/DF-II)
+│   ├── rice_codec.c              # Compression Codec Rice-Golomb
+│   └── audio_loop.c              # Interrupt management DMA e real-time cycle
 └── README.md
