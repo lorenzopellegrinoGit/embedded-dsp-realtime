@@ -1,15 +1,15 @@
 # Real-Time Audio Filtering & Lossless Compression (DSP)
 
 ## Overview
-This repository contains the code, experimental analysis, and technical report for real-time digital signal processing and audio compression developed at Politecnico di Torino. The project focuses on fixed-point optimization and real-time execution constraints on DSP hardware.
+This repository contains the C source code, experimental analysis, and technical report for real-time digital signal processing and audio compression developed at Politecnico di Torino. The project focuses on fixed-point optimization, hardware acceleration, and real-time execution constraints on DSP platforms.
 
 ---
 
 ### 🔑 Key Engineering Highlights
-- **Fixed-Point Real-Time Filtering:** Implemented 16-bit fixed-point FIR (Linear & Circular delay buffers) and IIR Biquads (Direct Form I & II) using Q0.15 and Q3.12 arithmetic.
-- **Hardware Acceleration:** Achieved up to **$70\times$ execution speedup** transitioning from floating-point routines to optimized assembly and hardware circular buffers.
-- **DMA Double-Buffering:** Integrated real-time audio I/O using DMA interrupts ($F_s = 24\text{ kHz}$ and $48\text{ kHz}$) ensuring zero buffer-underrun processing.
-- **Lossless Audio Codec:** Designed a predictor-based encoder (Orders $P_0$ to $P_5$) coupled with **Adaptive Rice-Golomb entropy coding**, reducing silence bitrate down to 4 bits/sample.
+- **Real-Time Audio Filtering (`src/audio_loop`):** Implemented 16-bit fixed-point FIR (Linear & Circular delay buffers) and IIR Biquad filters (Direct Form I & II) using $Q0.15$ and $Q3.12$ arithmetic.
+- **Hardware Acceleration & Profiling:** Achieved up to **$70\times$ execution speedup** transitioning from floating-point routines to hardware-optimized fixed-point assembly and circular buffer addressing.
+- **DMA Double-Buffering:** Integrated real-time audio I/O using double-buffered DMA interrupts ($F_s = 24\text{ kHz}$ and $48\text{ kHz}$), ensuring continuous acquisition without buffer underrun.
+- **Lossless Audio Codec (`src/audio_shorten`):** Designed a predictor-based encoder (Polynomial orders $P_0$ to $P_2$ and $5^{\text{th}}$-order FIR) paired with **Adaptive Rice-Golomb entropy coding**, reducing silence bitrate down to 4 bits/sample.
 
 ---
 
@@ -17,10 +17,14 @@ This repository contains the code, experimental analysis, and technical report f
 ```text
 embedded-dsp-realtime/
 ├── docs/
-│   └── 11_group_DSP.pdf          # Technical report
+│   └── DSP_Report.pdf          # Full experimental report (Theoretical derivations, cycles, spectral plots)
 ├── src/
-│   ├── fir_filters.c             # FIR Filter implementation (Linear/Circular)
-│   ├── iir_filters.c             # Biquad IIR (DF-I/DF-II)
-│   ├── rice_codec.c              # Compression Codec Rice-Golomb
-│   └── audio_loop.c              # Interrupt management DMA e real-time cycle
-└── README.md
+│   ├── audio_loop/             # Real-time audio filtering module
+│   │   ├── fir.c               # FIR filter implementations (Linear & Circular buffers)
+│   │   ├── iir.c               # IIR Biquad implementations (Direct Form I & II)
+│   │   └── main_bypass1.c      # Real-time processing loop and DMA interrupt handler
+│   └── audio_shorten/          # Lossless audio compression module
+│       ├── main.c              # Codec testbench and adaptive parameter logic
+│       ├── prediction.c        # Linear predictor algorithms (P0, P1, P2, P_FIR)
+│       └── rice_codec.c        # Rice-Golomb encoding/decoding routines
+└── README.md                   # Project overview
