@@ -5,7 +5,7 @@ This repository contains the C source code, experimental analysis, and technical
 
 ---
 
-### 🔑 Key Engineering Highlights
+### 🔑 Main infos about the project
 - **Real-Time Audio Filtering (`src/audio_loop`):** Implemented 16-bit fixed-point FIR (Linear & Circular delay buffers) and IIR Biquad filters (Direct Form I & II) using $Q0.15$ and $Q3.12$ arithmetic.
 - **Hardware Acceleration & Profiling:** Achieved up to **$70\times$ execution speedup** transitioning from floating-point routines to hardware-optimized fixed-point assembly and circular buffer addressing.
 - **DMA Double-Buffering:** Integrated real-time audio I/O using double-buffered DMA interrupts ($F_s = 24\text{ kHz}$ and $48\text{ kHz}$), ensuring continuous acquisition without buffer underrun.
